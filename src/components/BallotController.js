@@ -29,12 +29,14 @@ class BallotController extends React.Component {
     load = () => {
         const { ballotAddress, voterKey } = this.state;
 
-        this.setState({
-            isInvalidBallotEntered: !caver.utils.isAddress(ballotAddress),
-            isInvalidVoterKeyEntered: !caver.utils.isValidPrivateKey(voterKey)
-        })
+        let isInvalidBallotEntered = !caver.utils.isAddress(ballotAddress);
+        let isInvalidVoterKeyEntered = !caver.utils.isValidPrivateKey(voterKey); 
 
-        const { isInvalidBallotEntered, isInvalidVoterKeyEntered } = this.state;
+        this.setState({
+            isInvalidBallotEntered: isInvalidBallotEntered,
+            isInvalidVoterKeyEntered: isInvalidVoterKeyEntered
+        });
+
         if (isInvalidBallotEntered || isInvalidVoterKeyEntered) return;
 
         this.ballotRef.current.setup(ballotAddress, voterKey);
